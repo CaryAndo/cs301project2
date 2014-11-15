@@ -35,12 +35,12 @@ def generate_div_table():
             print('Value x1 = ' + str(table[0][x1]))
             print('Value x0 = ' + str(table[0][x0]))
             print('')
-            numerator_value = table[col_index-2][f1] - table[col_index-2][f0]
+            numerator_value = table[col_index][f1] - table[col_index][f0]
             denominator_value = table[0][x1] - table[0][x0]
             fin.append(numerator_value/denominator_value)
 
         table.append(fin)
-        #print(table)
+        print(table)
 
 
 if __name__ == '__main__':
