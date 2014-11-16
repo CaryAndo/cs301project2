@@ -39,13 +39,14 @@ def generate_div_table():
             numerator_value = table[col_index][f1] - table[col_index][f0]
             denominator_value = table[0][x1] - table[0][x0]
             appr = numerator_value/denominator_value
-            fin.append(round(appr, 3))
+            fin.append(float(str(appr)))
 
         table.append(fin)
         print(table)
 
-
+# TODO: THIS
 def generate_lagrange_table():
+    """ Generate interpolating polynomial using the Lagrange method. """
     for i in table[0]:
         print i
 
@@ -55,13 +56,14 @@ if __name__ == '__main__':
     generate_div_table()
     print('The interpolating polynomial is: ')
     polynomial = '' + str(table[1][0])
-    temp_x = ''
-    for i in range(2, len(table)):
 
-        for j in range(i):
-            temp_x += ('(' + str(table[1][j]) + ')' + 'x^' + str(j+1) + ' + ')
+    for i in range(2, len(table)):
+        temp_x = ''
+        for j in range(i-1):
+            temp_x += '(x-' + str(table[0][j]) + ')'
         temp_x = (str(table[i][0]) + temp_x)
-        print(temp_x)
+        polynomial += ' + ' + temp_x
+        print(polynomial)
         #print(str(table[i][0]) + str(temp_x))
     #print(table)
     #print "Hello World!"
