@@ -27,7 +27,7 @@ def generate_div_table():
             x0 = f0 = j
             x1 = x0 + iteration
             f1 = f0 + 1
-            print('iteration = ' + str(iteration))
+            '''print('iteration = ' + str(iteration))
             print('x0: ' + str(x0) + ' x1: ' + str(x1))
             print('f0: ' + str(f0) + ' f1: ' + str(f1))
             print('col index = ' + str(col_index))
@@ -35,7 +35,7 @@ def generate_div_table():
             print('Value f0 = ' + str(table[col_index-2][f0]))
             print('Value x1 = ' + str(table[0][x1]))
             print('Value x0 = ' + str(table[0][x0]))
-            print('')
+            print('')'''
             numerator_value = table[col_index][f1] - table[col_index][f0]
             denominator_value = table[0][x1] - table[0][x0]
             appr = numerator_value/denominator_value
@@ -51,6 +51,44 @@ def generate_lagrange_table():
         print i
 
 
+def print_table():
+    rows = ' f ' + ' f(x) '
+
+    for enum, i in enumerate(table):
+        if enum < 2:
+            continue
+        arf = ' f['
+        for j in range(enum):
+            arf += ','
+        arf += '] '
+        rows += arf
+    print(rows)
+
+    for count, i in enumerate(table[0]):
+        print table[0][count]
+        row = ' '
+        for enum, j in enumerate(table):
+            offset = len(table[0]) - len(table[enum]) -1
+            if (count-offset) < 0:
+                row += '    '
+                continue
+            else:
+                row += str(i)
+            print('count: ' + str(count))
+            print('offset: ' + str(offset))
+            print('difference: ' + str(count-offset))
+            print('')
+            #count - offset
+            #print('offset: ' + str(offset))
+            #row += ' ' + str(table[enum][count - offset]) + ' '
+            #if offset > enum:
+            #    continue
+        print(' ' + row) #+ str(table[count][enum]))
+
+    #for
+
+
+
 if __name__ == '__main__':
     setup_table()
     generate_div_table()
@@ -64,6 +102,9 @@ if __name__ == '__main__':
         temp_x = (str(table[i][0]) + temp_x)
         polynomial += ' + ' + temp_x
         print(polynomial)
+
+    print("And here is the table:")
+    print_table()
         #print(str(table[i][0]) + str(temp_x))
     #print(table)
     #print "Hello World!"
