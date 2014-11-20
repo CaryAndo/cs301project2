@@ -1,3 +1,5 @@
+from numpy import poly1d
+
 table = []
 print("Welcome!")
 
@@ -44,16 +46,18 @@ def generate_div_table():
         table.append(fin)
         print(table)
 
+
 # TODO: THIS
 def generate_lagrange_table():
     """ Generate interpolating polynomial using the Lagrange method. """
-    for i in table[0]:
-        print i
+    print([i for i in table[0]])
 
 
-def print_table():
+def print_table(table):
+    """ Print our sideways table properly """
     rows = ' f ' + ' f(x) '
 
+    # Print the column headers
     for enum, i in enumerate(table):
         if enum < 2:
             continue
@@ -64,29 +68,17 @@ def print_table():
         rows += arf
     print(rows)
 
-    for count, i in enumerate(table[0]):
-        print table[0][count]
+    # Print the actual rows of the table
+    for current_row, i in enumerate(table[0]):
         row = ' '
-        for enum, j in enumerate(table):
-            offset = len(table[0]) - len(table[enum]) -1
-            if (count-offset) < 0:
-                row += '    '
+        for current_col, j in enumerate(table):
+            offset = len(table[0]) - len(table[current_col])
+            if (current_row-offset) < 0:
+                row += ' '
                 continue
             else:
-                row += str(i)
-            print('count: ' + str(count))
-            print('offset: ' + str(offset))
-            print('difference: ' + str(count-offset))
-            print('')
-            #count - offset
-            #print('offset: ' + str(offset))
-            #row += ' ' + str(table[enum][count - offset]) + ' '
-            #if offset > enum:
-            #    continue
-        print(' ' + row) #+ str(table[count][enum]))
-
-    #for
-
+                row += '  ' + str(round(table[current_col][current_row-offset], 3)) + '  '
+        print(' ' + row)
 
 
 if __name__ == '__main__':
@@ -104,7 +96,7 @@ if __name__ == '__main__':
         print(polynomial)
 
     print("And here is the table:")
-    print_table()
+    print_table(table)
         #print(str(table[i][0]) + str(temp_x))
     #print(table)
     #print "Hello World!"
