@@ -81,12 +81,9 @@ def print_table(table):
         print(' ' + row)
 
 
-if __name__ == '__main__':
-    setup_table()
-    generate_div_table()
-    print('The interpolating polynomial is: ')
+def print_polynomial(table):
+    """ Print the un-simplified polynomial using our table """
     polynomial = '' + str(table[1][0])
-
     for i in range(2, len(table)):
         temp_x = ''
         for j in range(i-1):
@@ -95,8 +92,27 @@ if __name__ == '__main__':
         polynomial += ' + ' + temp_x
         print(polynomial)
 
-    print("And here is the table:")
+
+def print_simplified():
+    """ Print the simplified polynomial """
+    polynomial = poly1d([])
+    for i in range(1, len(table)):
+        temp_x = poly1d([table[i][0]])
+        for j in range(i-1):
+            temp_x *= poly1d([1, (-1*table[0][j])])
+        polynomial += temp_x
+    print(polynomial)
+
+
+if __name__ == '__main__':
+    setup_table()
+    generate_div_table()
+
+    print("\nAnd here is the table:")
     print_table(table)
-        #print(str(table[i][0]) + str(temp_x))
-    #print(table)
-    #print "Hello World!"
+
+    print('\nThe interpolating polynomial is: ')
+    print_polynomial(table)
+
+    print("\nThe simplified interpolating polynomial")
+    print_simplified()
