@@ -1,7 +1,18 @@
+# Cary Anderson - CS 301 Project 2
+# Finished: Saturday 22 Nov, 2014
+# Raheja - Tues/Thurs @ 1500
+
+
 from numpy import poly1d
 
+
 table = []
-print("Welcome!")
+
+
+def rreplace(s, old, new, occurrence):
+    """ Utility function to replace the last occurrence of a character in a string """
+    li = s.rsplit(old, occurrence)
+    return new.join(li)
 
 
 def setup_table():
@@ -20,7 +31,6 @@ def generate_div_table():
     """ Modify the table using the divided difference method """
 
     iteration = 0  # Keep track of how many columns we"ve done
-
     # iterate over every column past the first two
     for i in xrange(len(table[0]) - 1):
         col_index = 1 + i
@@ -36,24 +46,6 @@ def generate_div_table():
             fin.append(float(str(appr)))
 
         table.append(fin)
-
-
-# TODO
-def generate_lagrange_table():
-    """ Generate interpolating polynomial using the Lagrange method. """
-    finished = ""
-    for i in range(len(table[0])):
-        for j in range(len(table[0])):
-            if j == i:
-                continue
-            finished += "(x-" + str(table[0][j]) + ")"
-        denominator = 1
-        for k in range(len(table[0])):
-            if k == i:
-                continue
-            denominator *= (table[0][i] - table[0][k])
-        finished += "(" + str(table[1][i]/denominator) + ") + "
-    print(finished)
 
 
 def print_table(table):
@@ -107,13 +99,28 @@ def print_simplified():
     print(polynomial)
 
 
+def print_lagrange_polynomial():
+    """ Generate interpolating polynomial using the Lagrange method. """
+    finished = ""
+    for i in range(len(table[0])):
+        for j in range(len(table[0])):
+            if j == i:
+                continue
+            finished += "(x-" + str(table[0][j]) + ")"
+        denominator = 1
+        for k in range(len(table[0])):
+            if k == i:
+                continue
+            denominator *= (table[0][i] - table[0][k])
+        finished += "(" + str(table[1][i]/denominator) + ") + "
+    finished = rreplace(finished, '+', ' ', 1)
+    print(finished)
+
+
 if __name__ == "__main__":
+    print("Welcome!")
     setup_table()
     generate_div_table()
-
-    generate_lagrange_table()
-
-    quit()
 
     print("\nHere is the table:")
     print_table(table)
@@ -121,5 +128,8 @@ if __name__ == "__main__":
     print("\nThe interpolating polynomial is: ")
     print_polynomial(table)
 
-    print("\nThe simplified interpolating polynomial")
+    print("\nThe simplified interpolating polynomial is:")
     print_simplified()
+
+    print("\nThe Lagrange interpolating polynomial is: ")
+    print_lagrange_polynomial()
