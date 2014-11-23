@@ -41,7 +41,19 @@ def generate_div_table():
 # TODO
 def generate_lagrange_table():
     """ Generate interpolating polynomial using the Lagrange method. """
-    print([i for i in table[0]])
+    finished = ""
+    for i in range(len(table[0])):
+        for j in range(len(table[0])):
+            if j == i:
+                continue
+            finished += "(x-" + str(table[0][j]) + ")"
+        denominator = 1
+        for k in range(len(table[0])):
+            if k == i:
+                continue
+            denominator *= (table[0][i] - table[0][k])
+        finished += "(" + str(table[1][i]/denominator) + ") + "
+    print(finished)
 
 
 def print_table(table):
@@ -98,6 +110,10 @@ def print_simplified():
 if __name__ == "__main__":
     setup_table()
     generate_div_table()
+
+    generate_lagrange_table()
+
+    quit()
 
     print("\nHere is the table:")
     print_table(table)
