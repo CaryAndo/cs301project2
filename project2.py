@@ -1,7 +1,9 @@
 # Cary Anderson - CS 301 Project 2
 # Finished: Saturday 22 Nov, 2014
 # Raheja - Tues/Thurs @ 1500
-
+#
+# NOTE: My solution requires numpy or scipy to be installed
+# 'pip install numpy' OR 'apt-get install python-numpy' OR 'apt-get install python-scipy'
 
 from numpy import poly1d
 
@@ -15,9 +17,9 @@ def rreplace(s, old, new, occurrence):
     return new.join(li)
 
 
-def setup_table():
+def setup_table(table_file="input.txt"):
     """ Set up the table that holds x/y values """
-    the_file = open("input.txt", "r")
+    the_file = open(table_file, "r")
     for enum, line in enumerate(the_file):
         line = line.replace("\n", "")
         tony = line.split(" ")
@@ -119,7 +121,7 @@ def print_lagrange_polynomial():
 
 if __name__ == "__main__":
     print("Welcome!")
-    setup_table()
+    setup_table() # IF YOU WANT TO LOAD A DIFFERENT FILE, JUST PASS ONE TO THIS FUNCTION e.g. setup_table("other.txt")
     generate_div_table()
 
     print("\nHere is the table:")
